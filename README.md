@@ -11,3 +11,23 @@ Conditional Code Flow is a library which helps simplify design and code implemen
   - Code complicated processes
   - Add various factors of influence on the processes
   - Available for .Net Core projects as Nuget package 
+
+### Installation
+
+Use nuget package manager to install latest version of ConditionalCodeFlow
+
+For nuget package manager console...
+```sh
+$ Install-Package ConditionalCodeFlow 
+```
+
+### Future plans
+
+- Simplify user interface for the library
+- Add visual designer to edit Conditional Map
+- Port to Java, Python
+
+License
+----
+
+MIT
