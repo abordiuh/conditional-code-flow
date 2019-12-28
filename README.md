@@ -30,4 +30,4 @@ $ Install-Package ConditionalCodeFlow
 License
 ----
 
-MIT
+Copyright 2019
