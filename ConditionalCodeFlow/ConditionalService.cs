@@ -74,6 +74,11 @@ namespace ConditionalCore
             return oData;
         }
 
+        public List<CData> getInputCData()
+        {
+            return iDataList;
+        }
+
         public CData getOutputCData() {
             return oData;
         }

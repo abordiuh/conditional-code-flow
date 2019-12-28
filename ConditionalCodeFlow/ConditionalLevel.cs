@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace ConditionalCore
@@ -12,6 +13,11 @@ namespace ConditionalCore
         public string getName()
         {
             return this.GetType().Name;
+        }
+
+        public List<KeyValuePair<string, ConditionalService>> getServicesList()
+        {
+            return levelServices.ToList();
         }
 
         public bool AddService(ConditionalService service) {

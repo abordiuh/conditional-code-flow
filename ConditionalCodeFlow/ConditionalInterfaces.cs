@@ -27,6 +27,7 @@ namespace ConditionalCore
 
     public interface IExecutableCondition
     {
+        string getName();
         CData Execute();
         CData getOutputCData();
     }

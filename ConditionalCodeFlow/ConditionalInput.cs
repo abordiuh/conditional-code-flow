@@ -56,6 +56,11 @@ namespace ConditionalCore
             return outputCData;
         }
 
+        public CData getInputCData()
+        {
+            return inputCData;
+        }
+
         public CData getOutputCData()
         {
             return outputCData;

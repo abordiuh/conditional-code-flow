@@ -6,9 +6,15 @@ namespace ConditionalCore
 {
     public class ConditionalDataCore
     {
-        private Dictionary<string, ConditionalLevel> levelsList = new Dictionary<string, ConditionalLevel>();
-        private Dictionary<string, ConditionalInput> inputsList = new Dictionary<string, ConditionalInput>();
+        public Dictionary<string, ConditionalLevel> levelsList { get; }
+        public Dictionary<string, ConditionalInput> inputsList { get; }
         private string inputLevelName = "input";
+
+        public ConditionalDataCore()
+        {
+            levelsList = new Dictionary<string, ConditionalLevel>();
+            inputsList = new Dictionary<string, ConditionalInput>();
+        }
 
         public void setInputLevelName(string inputLevelName)
         {
@@ -109,7 +115,8 @@ namespace ConditionalCore
                         cservice.setInputCData(data);
                         cservice.Execute();
                     }
-                    else { 
+                    else
+                    {
                         Console.WriteLine(cservice.getName() + " NOT EXECUTED!");
                     }
 
@@ -155,10 +162,11 @@ namespace ConditionalCore
                     someInputDiactivated = true;
                     Console.WriteLine("Input " + inputStr.Item2 + " on level " + inputStr.Item1 + " FALSE");
                 }
-                else {
+                else
+                {
                     if (!(inputStr.Item3))
                     {
-                         Console.WriteLine("Input " + inputStr.Item2 + " on level " + inputStr.Item1 + " TRUE");
+                        Console.WriteLine("Input " + inputStr.Item2 + " on level " + inputStr.Item1 + " TRUE");
                     }
                     else if ((inputStr.Item3) && !(data.previousNodeExecutedOk))
                     {
@@ -166,10 +174,12 @@ namespace ConditionalCore
                     }
                 }
             }
-            if (someInputDiactivated) {
+            if (someInputDiactivated)
+            {
                 return false;
-            } else
-            return true;
+            }
+            else
+                return true;
         }
 
         public void resetInputs()
@@ -194,7 +204,7 @@ namespace ConditionalCore
                     ConditionalService cservice = levelsList[LevelKey.Key].levelServices[serviceKey.Key];
 
                     cservice.Reset();
-                
+
                     levelsList[LevelKey.Key].levelServices[serviceKey.Key] = cservice;
                 }
             }
