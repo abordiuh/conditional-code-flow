@@ -19,44 +19,44 @@ namespace ConditionalCodeFlowTest
         public ConditionalMap1LvlTestStuck()
         {
             conditionalMap1 = new ConditionalMap(LevelIds1.input_level.ToString());
-            conditionalMap1.AddInput(new ConditionalInput((CData data) => { return data; }, "l0_i1"));
-            conditionalMap1.AddInput(new ConditionalInput((CData data) => { return data; }, "l0_i2"));
-            conditionalMap1.AddInput(new ConditionalInput((CData data) => { return data; }, "l0_i3"));
-
-            List<CData> inputData = new List<CData>
-            {
-                new CData(true),
-                new CData(true),
-                new CData(false)
-            };
-            conditionalMap1.updateInputsCData(inputData);
-
-            conditionalMap1.AddLevel(LevelIds1.level1.ToString());
-
-            conditionalMap1.AddService(LevelIds1.level1.ToString(),
-                new ConditionalService(lvl1_n_method, "l1_n1", new TupleList<string, string, bool> {
-                    { LevelIds1.input_level.ToString(),  "l0_i1", true },
-                    { LevelIds1.input_level.ToString(),  "l0_i2", true },
-                    { LevelIds1.input_level.ToString(),  "l0_i3", true }
-                }));
-
-            conditionalMap1.AddService(LevelIds1.level1.ToString(),
-                new ConditionalService(lvl1_n_method, "l1_n2", new TupleList<string, string, bool> {
-                    { LevelIds1.input_level.ToString(),  "l0_i1", false },
-                    { LevelIds1.input_level.ToString(),  "l0_i2", false },
-                    { LevelIds1.input_level.ToString(),  "l0_i3", true }
-                }));
-
-            conditionalMap1.AddService(LevelIds1.level1.ToString(),
-                new ConditionalService(lvl1_n_method, "l1_n3", new TupleList<string, string, bool> {
-                    { LevelIds1.input_level.ToString(),  "l0_i1", true },
-                    { LevelIds1.input_level.ToString(),  "l0_i2", true },
-                    { LevelIds1.input_level.ToString(),  "l0_i3", false }
-                })); //"l1_n3" should not execute as "l0_i3" dependency doesn't have soft relation (=false)
-
-
-            conditionalMap1.TryExecute();
-        }
+                     conditionalMap1.AddInput(new ConditionalInput((CData data) => { return data; }, "l0_i1"));
+                     conditionalMap1.AddInput(new ConditionalInput((CData data) => { return data; }, "l0_i2"));
+                     conditionalMap1.AddInput(new ConditionalInput((CData data) => { return data; }, "l0_i3"));
+         
+                     List<CData> inputData = new List<CData>
+                     {
+                         new CData(true),
+                         new CData(true),
+                         new CData(false)
+                     };
+                     conditionalMap1.updateInputsCData(inputData);
+         
+                     conditionalMap1.AddLevel(LevelIds1.level1.ToString());
+         
+                     conditionalMap1.AddService(LevelIds1.level1.ToString(),
+                         new ConditionalService(lvl1_n_method, "l1_n1", new TupleList<string, string, bool> {
+                             { LevelIds1.input_level.ToString(),  "l0_i1", true },
+                             { LevelIds1.input_level.ToString(),  "l0_i2", true },
+                             { LevelIds1.input_level.ToString(),  "l0_i3", true }
+                         }));
+         
+                     conditionalMap1.AddService(LevelIds1.level1.ToString(),
+                         new ConditionalService(lvl1_n_method, "l1_n2", new TupleList<string, string, bool> {
+                             { LevelIds1.input_level.ToString(),  "l0_i1", false },
+                             { LevelIds1.input_level.ToString(),  "l0_i2", false },
+                             { LevelIds1.input_level.ToString(),  "l0_i3", true }
+                         }));
+         
+                     conditionalMap1.AddService(LevelIds1.level1.ToString(),
+                         new ConditionalService(lvl1_n_method, "l1_n3", new TupleList<string, string, bool> {
+                             { LevelIds1.input_level.ToString(),  "l0_i1", true },
+                             { LevelIds1.input_level.ToString(),  "l0_i2", true },
+                             { LevelIds1.input_level.ToString(),  "l0_i3", false }
+                         })); //"l1_n3" should not execute as "l0_i3" dependency doesn't have soft relation (=false)
+         
+         
+                     conditionalMap1.TryExecute();
+                 }
 
 
         [Fact]
