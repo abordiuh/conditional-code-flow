@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConditionalCodeFlow", "ConditionalCodeFlow\ConditionalCodeFlow.csproj", "{920D3624-2100-4F78-BE5E-44CB5CF9065F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConditionalCodeFlowTest", "ConditionalCodeFlowTest\ConditionalCodeFlowTest.csproj", "{BBD0A68D-4F61-4C2D-8FB8-6FDFAD59F8D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeFlowTests", "CodeFlowTests\CodeFlowTests.csproj", "{BBD0A68D-4F61-4C2D-8FB8-6FDFAD59F8D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

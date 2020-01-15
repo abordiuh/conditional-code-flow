@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Xml.Serialization;
+
 namespace CodeFlow
 {
     public class Signal
@@ -5,9 +9,13 @@ namespace CodeFlow
         public Node Node { get; set; }
         
         // can contain behavior / decorators objects
-
-        public Signal ShallowClone() {
-            return (Signal)this.MemberwiseClone();
+        public ICloneable Data { get; set; }
+        
+        public Signal ShallowClone()
+        {
+            Signal clone = (Signal) this.MemberwiseClone();
+            clone.Data = (ICloneable)this.Data.Clone();
+            return clone;
         }
     }
 }

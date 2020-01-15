@@ -1,4 +1,5 @@
 using System;
+using CodeFlow.Customization;
 
 namespace CodeFlow
 {
@@ -17,6 +18,8 @@ namespace CodeFlow
 
         // can contain behavior / decorators objects
 
+        public ISignalProcessable SignalProcessor;
+        
         public Connection(string name = "")
         {
             if (!string.IsNullOrEmpty(name))
