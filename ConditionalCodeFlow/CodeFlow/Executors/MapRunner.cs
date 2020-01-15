@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 
@@ -17,7 +18,17 @@ namespace CodeFlow.Executors
             _noSignalsToExecute = false;
         }
 
-        private Signal CombineSignalsNeedToBeInStrategyObject(List<Signal> signals){ return new Signal();}
+        private Signal ProcessSignalOnNode(Node node, IEnumerable<Signal> signals)
+        {
+            var resultSignal = node.SignalProcessor?.ProcessSignal(signals);
+            return resultSignal;
+        }
+
+        private Signal ProcessSignalOnConnection(Connection connection, IEnumerable<Signal> signals)
+        {
+            var resultSignal = connection.SignalProcessor?.ProcessSignal(signals);
+            return resultSignal;
+        }
         
         public void Run()
         {
@@ -41,12 +52,15 @@ namespace CodeFlow.Executors
             var allSignalsOnNode = _map.signals.FindAll(s => s.Node == nodeToExecute);
             
             //combine signals by combining strategy and remove them from the map
-            var resultSignal = CombineSignalsNeedToBeInStrategyObject(allSignalsOnNode);
             foreach (var signal in allSignalsOnNode) { _map.signals.Remove(signal); }
-            //_map.signals.Remove(currentSignal);
+
+            //process combined signal
+            var resultSignal = ProcessSignalOnNode(nodeToExecute, allSignalsOnNode);
+
+            //save final combined signal on the last point or not do anything
+            if (resultSignal == null) return;
             
-            //save final combined signal on the last point
-            if (nodeToExecute.OutputConnetctions.Count == 0)
+            if (nodeToExecute.OutputConnections.Count == 0)
             {
                 resultSignal.Node = nodeToExecute;
                 _map.signals.Insert(_lastSignalIndex, resultSignal);
@@ -54,11 +68,15 @@ namespace CodeFlow.Executors
             }
             
             //distribute signals through connections
-            foreach (var connection in nodeToExecute.OutputConnetctions)
+            foreach (var connection in nodeToExecute.OutputConnections)
             {
-                var newSignal = resultSignal.ShallowClone();
-                newSignal.Node = connection.EndNode;
-                _map.signals.Add(newSignal);
+                Signal newSignal = resultSignal.ShallowClone();
+                var connProcessedSignal = connection.SignalProcessor?.ProcessSignal( new List<Signal>() {newSignal} );
+                if (connProcessedSignal != null)
+                {
+                    connProcessedSignal.Node = connection.EndNode;
+                    _map.signals.Add(connProcessedSignal);
+                }
             }
         }
     }

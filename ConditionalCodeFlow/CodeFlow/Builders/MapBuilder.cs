@@ -82,6 +82,11 @@ namespace CodeFlow
             } else throw new Exception("Can't add signal. Node with name " + nodeName + " not found exception");
         }
 
+        public void ClearSignals()
+        {
+            map.signals.Clear();
+        }
+
         public Node GetNodeByName(string name)
         {
            return _map.nodes.FirstOrDefault(n => n.Name == name);
