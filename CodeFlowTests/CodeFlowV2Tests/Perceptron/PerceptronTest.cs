@@ -1,3 +1,4 @@
+using System;
 using CodeFlow;
 using CodeFlow.Executors;
 using ConditionalCodeFlowTest.CodeFlowV2Tests;
@@ -93,9 +94,9 @@ namespace CodeFlowTests.CodeFlowV2Tests.Perceptron
             Assert.Equal(builder.GetNodeByName("n2l2"), map.signals[1].Node);
             Assert.Equal(builder.GetNodeByName("n3l2"), map.signals[2].Node);
             
-            Assert.Equal(3.69f, ((SignalFloatData)map.signals[0].Data).Value);
-            Assert.Equal(3.96f, ((SignalFloatData)map.signals[1].Data).Value);
-            Assert.Equal(4.23f, ((SignalFloatData)map.signals[2].Data).Value);
+            Assert.Equal(4.5f, Math.Round(((SignalFloatData)map.signals[0].Data).Value, 3),2);
+            Assert.Equal(4.86f, Math.Round(((SignalFloatData)map.signals[1].Data).Value, 3), 2);
+            Assert.Equal(5.22f, Math.Round(((SignalFloatData)map.signals[2].Data).Value, 3),2);
         }
     }
 }
