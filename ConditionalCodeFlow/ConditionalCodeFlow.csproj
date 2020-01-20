@@ -1,11 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
     <ApplicationIcon />
-    <OutputType>Exe</OutputType>
     <StartupObject />
     <LangVersion>8</LangVersion>
+    <AssemblyName>CodeFlow</AssemblyName>
+    <RootNamespace>CodeFlow</RootNamespace>
+    <TargetFrameworks>net472;netcoreapp2.2</TargetFrameworks>
   </PropertyGroup>
 
 </Project>
