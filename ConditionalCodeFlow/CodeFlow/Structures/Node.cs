@@ -6,22 +6,18 @@ namespace CodeFlow
 {
     public class Node
     {
+        public int Id = 0;
+
         //cross reference
         private List<Connection> _inputConnections = new List<Connection>(); // DENDRITES
         private List<Connection> _outputConnections = new List<Connection>(); // AXONS
 
         // properties
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => _name = (string.IsNullOrEmpty(_name))? value : throw new Exception("Node already has a name: "+ _name + " trying to set " + value);
-        }
+        public string Name;
 
         public ISignalProcessable SignalProcessor;
         
         public List<Connection> OutputConnections => _outputConnections;
-
         public List<Connection> InputConnections => _inputConnections;
 
         // can contain behavior / decorators objects

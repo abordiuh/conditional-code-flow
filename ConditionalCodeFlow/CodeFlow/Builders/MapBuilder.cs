@@ -21,8 +21,12 @@ namespace CodeFlow
         
         public void AddNode(Node node, string name = "")
         {
-            if (!string.IsNullOrEmpty(name))
-                node.Name = name;
+            node.Name = name;
+
+            int maxId = 1;
+            if (_map.nodes.Count > 0)
+                maxId = _map.nodes.Max(n => n.Id);
+            node.Id = maxId + 1;
             _map.nodes.Add(node);
         }
 
@@ -65,6 +69,10 @@ namespace CodeFlow
 
         public void AddConnection(Connection connection)
         {
+            int maxId = 1;
+            if (_map.connections.Count > 0)
+                maxId = _map.connections.Max(c => c.Id);
+            connection.Id = maxId + 1;
             _map.connections.Add(connection);
             var startNode = _map.nodes.Find(n => n == connection.StartNode);
             var endNode = _map.nodes.Find(n => n == connection.EndNode);
