@@ -6,15 +6,15 @@ namespace CodeFlow
     public class Map
     {
         // Global storage for nodes and connections
-        public List<Node> nodes;
-        public List<Connection> connections;
-        public List<Signal> signals;
+        public List<Node> Nodes { get; set; }
+        public List<Connection> Connections { get; set; }
+        public List<Signal> Signals { get; set; }
 
         public Map()
         {
-            this.nodes = new List<Node>();
-            this.connections = new List<Connection>();
-            this.signals = new List<Signal>();
+            this.Nodes = new List<Node>();
+            this.Connections = new List<Connection>();
+            this.Signals = new List<Signal>();
         }
     }
 }

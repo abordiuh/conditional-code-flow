@@ -1,42 +1,26 @@
 using System;
 using System.Collections.Generic;
 using CodeFlow.Customization;
+using Newtonsoft.Json;
 
 namespace CodeFlow
 {
     public class Node
     {
-        public int Id = 0;
+        /// <summary>
+        /// Properties
+        /// </summary>
+        public int Id { get; set; } = -1;
+        public string Name { get; set; } = "";
+        public int SignalProcessorId { get; set; } = -1;
+        public ISignalProcessable SignalProcessor { get; set; }
 
-        //cross reference
-        private List<Connection> _inputConnections = new List<Connection>(); // DENDRITES
-        private List<Connection> _outputConnections = new List<Connection>(); // AXONS
-
-        // properties
-        public string Name;
-
-        public ISignalProcessable SignalProcessor;
-        
-        public List<Connection> OutputConnections => _outputConnections;
-        public List<Connection> InputConnections => _inputConnections;
-
-        // can contain behavior / decorators objects
-        //need to store a link to execution method
-        public void UpdateInputConnections(Connection connection)
-        {
-            if (!_inputConnections.Exists(c => c == connection))
-                _inputConnections.Add(connection);
-        }
-
-        public void UpdateOutputConnections(Connection connection)
-        {
-            if (!_outputConnections.Exists(c => c == connection))
-                _outputConnections.Add(connection);
-        }
-
-        public Node ShallowClone()
-        {
-            return (Node)this.MemberwiseClone();
-        }
+        /// <summary>
+        /// Cross - References (ignored during serialization)
+        /// </summary>
+        [JsonIgnore]
+        public List<Connection> OutputConnections = new List<Connection>();
+        [JsonIgnore]
+        public List<Connection> InputConnections = new List<Connection>();
     }
 }

@@ -25,7 +25,7 @@ namespace ConditionalCodeFlowTest.CodeFlowV2Tests
             this.Weight = weight;
         }
                 
-        public Signal ProcessSignal(IEnumerable<Signal> signals)
+        public Signal ProcessSignal(IEnumerable<Signal> signals, Map map)
         {
             if (signals.Any() && signals.First().Data is SignalFloatData)
             {
@@ -51,7 +51,7 @@ namespace ConditionalCodeFlowTest.CodeFlowV2Tests
             this.stepPassValue = stepPositiveValue;
         }
                 
-        public Signal ProcessSignal(IEnumerable<Signal> signals)
+        public Signal ProcessSignal(IEnumerable<Signal> signals, Map map)
         {
             var resSignal = new Signal();
             resSignal.Data = new SignalFloatData() {Value = 0};
@@ -72,7 +72,7 @@ namespace ConditionalCodeFlowTest.CodeFlowV2Tests
     
     class InputNeuronSignalProcessor : ISignalProcessable
     { 
-        public Signal ProcessSignal(IEnumerable<Signal> signals)
+        public Signal ProcessSignal(IEnumerable<Signal> signals, Map map)
         {
             return signals.First();
         }

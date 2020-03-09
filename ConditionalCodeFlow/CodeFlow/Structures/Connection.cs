@@ -1,28 +1,26 @@
 using System;
 using CodeFlow.Customization;
+using Newtonsoft.Json;
 
 namespace CodeFlow
 {
     public class Connection
     {
-        public int Id = 0;
+        /// <summary>
+        /// Properties
+        /// </summary>
+        public int Id { get; set; } = -1;
+        public string Name { get; set; }
+        public int StartNodeId { get; set; } = -1;
+        public int EndNodeId { get; set; } = -1;
+        public ISignalProcessable SignalProcessor { get; set; }
 
-        public string Name;
-
-        //cross reference
+        /// <summary>
+        /// Cross - References for simplification of usability (Ignored During serialization)
+        /// </summary>
+        [JsonIgnore]
         public Node StartNode;
+        [JsonIgnore]
         public Node EndNode;
-
-        // can contain behavior / decorators objects
-
-        public ISignalProcessable SignalProcessor;
-        
-        public Connection(string name = "")
-        {
-        }
-        
-        public Connection ShallowClone() {
-            return (Connection)this.MemberwiseClone();
-        }
     }
 }

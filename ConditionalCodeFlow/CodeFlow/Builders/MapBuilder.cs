@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,10 @@ namespace CodeFlow
             node.Name = name;
 
             int maxId = 1;
-            if (_map.nodes.Count > 0)
-                maxId = _map.nodes.Max(n => n.Id);
+            if (_map.Nodes.Count > 0)
+                maxId = _map.Nodes.Max(n => n.Id);
             node.Id = maxId + 1;
-            _map.nodes.Add(node);
+            _map.Nodes.Add(node);
         }
 
         public void AddConnections(string[] startNames, string[] endNames, Connection connection = null)
@@ -43,8 +44,8 @@ namespace CodeFlow
 
         public void AddConnection(string startName, string endName, Connection connection = null)
         {
-            var startNode = _map.nodes.Find(n => n.Name == startName);
-            var endNode = _map.nodes.Find(n => n.Name == endName);
+            var startNode = _map.Nodes.Find(n => n.Name == startName);
+            var endNode = _map.Nodes.Find(n => n.Name == endName);
 
             if (startNode == null || endNode == null)
             {
@@ -56,6 +57,8 @@ namespace CodeFlow
                 connection = new Connection();
             }
 
+            connection.StartNodeId = startNode.Id;
+            connection.EndNodeId = endNode.Id;
             connection.StartNode = startNode;
             connection.EndNode = endNode;
             AddConnection(connection);
@@ -70,34 +73,45 @@ namespace CodeFlow
         public void AddConnection(Connection connection)
         {
             int maxId = 1;
-            if (_map.connections.Count > 0)
-                maxId = _map.connections.Max(c => c.Id);
+            if (_map.Connections.Count > 0)
+                maxId = _map.Connections.Max(c => c.Id);
             connection.Id = maxId + 1;
-            _map.connections.Add(connection);
-            var startNode = _map.nodes.Find(n => n == connection.StartNode);
-            var endNode = _map.nodes.Find(n => n == connection.EndNode);
-            startNode?.UpdateOutputConnections(connection);
-            endNode?.UpdateInputConnections(connection);
+            _map.Connections.Add(connection);
+            var startNode = _map.Nodes.Find(n => n == connection.StartNode);
+            var endNode = _map.Nodes.Find(n => n == connection.EndNode);
+            startNode?.OutputConnections.Add(connection);
+            endNode?.InputConnections.Add(connection);
         }
 
         public void AddSignal(Signal signal, string nodeName)
         {
-            var node = _map.nodes.FirstOrDefault(n => n.Name == nodeName);
+            var node = _map.Nodes.FirstOrDefault(n => n.Name == nodeName);
             if (node != null)
             {
-                signal.Node = node;
-                _map.signals.Add(signal);
+                signal.AtNodeId = node.Id;
+                signal.AtNode = node;
+                _map.Signals.Add(signal);
             } else throw new Exception("Can't add signal. Node with name " + nodeName + " not found exception");
         }
 
         public void ClearSignals()
         {
-            map.signals.Clear();
+            map.Signals.Clear();
         }
 
         public Node GetNodeByName(string name)
         {
-           return _map.nodes.FirstOrDefault(n => n.Name == name);
+           return _map.Nodes.FirstOrDefault(n => n.Name == name);
+        }
+
+        public Map CreateMapFromJson( string mapJson)
+        {
+            _map.Signals.Clear();
+            _map.Nodes.Clear();
+            _map.Nodes.Clear();
+
+            _map = JsonConvert.DeserializeObject<Map>(mapJson);
+            return _map;
         }
     }
 }

@@ -20,13 +20,13 @@ namespace CodeFlow.Executors
 
         private Signal ProcessSignalOnNode(Node node, IEnumerable<Signal> signals)
         {
-            var resultSignal = node.SignalProcessor?.ProcessSignal(signals);
+            var resultSignal = node.SignalProcessor?.ProcessSignal(signals, _map);
             return resultSignal;
         }
 
         private Signal ProcessSignalOnConnection(Connection connection, IEnumerable<Signal> signals)
         {
-            var resultSignal = connection.SignalProcessor?.ProcessSignal(signals);
+            var resultSignal = connection.SignalProcessor?.ProcessSignal(signals, _map);
             return resultSignal;
         }
         
@@ -40,19 +40,19 @@ namespace CodeFlow.Executors
 
         public void RunStep()
         {
-            if (_lastSignalIndex >= _map.signals.Count)
+            if (_lastSignalIndex >= _map.Signals.Count)
             {
                 _noSignalsToExecute = true;
                 _lastSignalIndex = 0;
                 return;
             }
 
-            var currentSignal = _map.signals[_lastSignalIndex];
-            var nodeToExecute = _map.signals[_lastSignalIndex].Node;
-            var allSignalsOnNode = _map.signals.FindAll(s => s.Node == nodeToExecute);
+            var currentSignal = _map.Signals[_lastSignalIndex];
+            var nodeToExecute = _map.Signals[_lastSignalIndex].AtNode;
+            var allSignalsOnNode = _map.Signals.FindAll(s => s.AtNode == nodeToExecute);
             
             //combine signals by combining strategy and remove them from the map
-            foreach (var signal in allSignalsOnNode) { _map.signals.Remove(signal); }
+            foreach (var signal in allSignalsOnNode) { _map.Signals.Remove(signal); }
 
             //process combined signal
             var resultSignal = ProcessSignalOnNode(nodeToExecute, allSignalsOnNode);
@@ -62,8 +62,8 @@ namespace CodeFlow.Executors
             
             if (nodeToExecute.OutputConnections.Count == 0)
             {
-                resultSignal.Node = nodeToExecute;
-                _map.signals.Insert(_lastSignalIndex, resultSignal);
+                resultSignal.AtNode = nodeToExecute;
+                _map.Signals.Insert(_lastSignalIndex, resultSignal);
                 _lastSignalIndex++;
             }
             
@@ -71,11 +71,11 @@ namespace CodeFlow.Executors
             foreach (var connection in nodeToExecute.OutputConnections)
             {
                 Signal newSignal = resultSignal.ShallowClone();
-                var connProcessedSignal = connection.SignalProcessor?.ProcessSignal( new List<Signal>() {newSignal} );
+                var connProcessedSignal = connection.SignalProcessor?.ProcessSignal( new List<Signal>() {newSignal} , _map);
                 if (connProcessedSignal != null)
                 {
-                    connProcessedSignal.Node = connection.EndNode;
-                    _map.signals.Add(connProcessedSignal);
+                    connProcessedSignal.AtNode = connection.EndNode;
+                    _map.Signals.Add(connProcessedSignal);
                 }
             }
         }
