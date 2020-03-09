@@ -7,15 +7,15 @@ namespace CodeFlowV21.Structure
     public class Map
     {
         // Global storage for nodes and connections
-        public List<Node> nodes;
-        public List<Connection> connections;
-        public List<Signal> signals;
+        public List<Node> Nodes;
+        public List<Connection> Connections;
+        public List<Signal> Signals;
 
         public Map()
         {
-            this.nodes = new List<Node>();
-            this.connections = new List<Connection>();
-            this.signals = new List<Signal>();
+            this.Nodes = new List<Node>();
+            this.Connections = new List<Connection>();
+            this.Signals = new List<Signal>();
         }
     }
 }

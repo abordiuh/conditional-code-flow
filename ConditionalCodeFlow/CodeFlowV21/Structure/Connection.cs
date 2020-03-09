@@ -6,10 +6,10 @@ namespace CodeFlowV21.Structure
 {
     public class Connection
     {
-        int connId = 0;
-        int signalProcessorId = 0;
-        int dataStorageId = 0;
-        int startNodeId = 0;
-        int endNodeId = 0;
+        public int Id = 0;
+        public int SignalProcessorId = 0;
+        public int DataStorageId = 0;
+        public int StartNodeId = 0;
+        public int EndNodeId = 0;
     }
 }

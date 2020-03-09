@@ -6,12 +6,12 @@ namespace CodeFlowV21.Structure
 {
     public class Node
     {
-		public int nodeId = 0;
-		public int signalProcessorId = 0;
-		public int dataStorageId = 0;
+		public int Id = 0;
+		public int SignalProcessorId = 0;
+		public int DataStorageId = 0;
 
-		public int posX = 0;
-		public int posY = 0;
+		public int PosX = 0;
+		public int PosY = 0;
 
 		// Additional
 		public string Name;

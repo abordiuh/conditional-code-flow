@@ -6,9 +6,9 @@ namespace CodeFlowV21.Structure
 {
     public class Signal
     {
-        int signalId = 0;
-        int dataStorageId = 0;
-        int onNodeId = 0;
-        int onConnId = 0;
+        public int Id = 0;
+        public int DataStorageId = 0;
+        public int OnNodeId = 0;
+        public int OnConnId = 0;
     }
 }
